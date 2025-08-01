@@ -1,55 +1,41 @@
-let a = 2;
-let b = 6
+let a = parseFloat(prompt("Enter the First Number"));
+let b = parseFloat(prompt("Enter the Second Number"));
 
-function sum(a , b) {
-    console.log(a + b);
+function showResult(operationName, actualResult) {
+    alert(`The ${operationName} is ${actualResult}`);
+    console.log(`The ${operationName} of ${a} and ${b} is ${actualResult}`);
 }
 
-function difference(a , b) {
-    console.log(a - b);
+// Operation logic with 10% chance of fault
+function performOperation(label, correctFn, faultyFn) {
+    const isCorrect = Math.random() > 0.1;
+    const result = isCorrect ? correctFn(a, b) : faultyFn(a, b);
+    showResult(label, result);
 }
 
-function multi(a , b) {
-    console.log(a * b);
+// Define basic math operations
+function sum(x, y) {
+    return x + y;
 }
 
-function divide(a , b) {
-    console.log(a / b);
+function difference(x, y) {
+    return x - y;
 }
 
-function expo(a , b) {
-    console.log(a ** b);
+function multi(x, y) {
+    return x * y;
 }
 
-if (Math.random() > 0.1) {
-    sum(a,b);
+function divide(x, y) {
+    return x / y;
 }
 
-else{
-    difference(a,b);
+function expo(x, y) {
+    return x ** y;
 }
 
-if (Math.random() > 0.1) {
-    multi(a,b);
-}
-
-else{
-    sum(a,b);
-}
-
-if (Math.random() > 0.1) {
-    difference(a,b);
-}
-
-else{
-    divide(a,b);
-}
-
-if (Math.random() > 0.1) {
-    divide(a,b);
-}
-
-else{
-    expo(a,b);
-}
-
+// Now simulate the operations
+performOperation("sum", sum, difference);       // 90% sum, 10% faulty difference
+performOperation("multiplication", multi, sum); // 90% multi, 10% faulty sum
+performOperation("difference", difference, divide); // etc.
+performOperation("division", divide, expo);
